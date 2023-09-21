@@ -3,49 +3,39 @@
 #include <stdio.h>
 #include <string.h>
 // https://github.com/valinet/ssa/blob/master/KMP/c/kmp.c
-void* memmem(void* haystack, size_t haystacklen, void* needle, size_t needlelen)
+
+void *memmem(void *haystack, size_t haystacklen, void const *needle, size_t needlelen)
 {
-    const char* text = (const char*)haystack;
-    const char* pattern = (const char*)needle;
-    const char* rv = NULL;
+    char       *text    = haystack;
+    char const *pattern = needle;
+    char       *rv      = NULL;
 
-    size_t* out = calloc(needlelen, sizeof(size_t));
+    size_t *out = calloc(needlelen, sizeof(size_t));
     if (!out)
-    {
         return NULL;
-    }
-    size_t j, i;
 
-    j = 0, i = 1;
+    size_t j = 0;
+    size_t i = 1;
     while (i < needlelen) {
-        if (text[j] != text[i])
-        {
-            if (j > 0)
-            {
+        if (text[j] != text[i]) {
+            if (j > 0) {
                 j = out[j - 1];
                 continue;
             }
-            else j--;
+            --j;
         }
-        j++;
-        out[i] = j;
-        i++;
+        out[i++] = ++j;
     }
 
-    i = 0, j = 0;
-    for (i = 0; i <= haystacklen; i++) {
+    for (i = 0, j = 0; i <= haystacklen; ++i) {
         if (text[i] == pattern[j]) {
-            j++;
-            if (j == needlelen) {
-                rv = text + (int)(i - needlelen + 1); //match++; j = out[j - 1];
+            if (++j == needlelen) {
+                rv = text + (intptr_t)(i - needlelen + 1); // match++; j = out[j - 1];
                 break;
             }
-        }
-        else {
-            if (j != 0) {
-                j = out[j - 1];
-                i--;
-            }
+        } else if (j != 0) {
+            j = out[j - 1];
+            --i;
         }
     }
 

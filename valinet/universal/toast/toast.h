@@ -1,11 +1,15 @@
 #ifndef LIBVALINET_UNIVERSAL_TOAST_TOAST_H_
 #define LIBVALINET_UNIVERSAL_TOAST_TOAST_H_
 #ifdef _LIBVALINET_INCLUDE_UNIVERSAL
+
 #pragma comment(lib, "runtimeobject.lib")
 #include <initguid.h>
 #include <roapi.h>
 #include <windows.data.xml.dom.h>
 #include <windows.data.json.h>
+
+#include <stdio.h>
+
 // UUID obtained from <windows.ui.notifications.h>
 //
 // ABI.Windows.UI.Notifications.IToastNotificationManagerStatics
@@ -238,7 +242,7 @@ inline HRESULT String2IXMLDocument(
         if (stream)
         {
             fprintf(stream,
-                "%s:%d:: WindowsCreateStringReference = %d\n", __FUNCTION__, __LINE__,
+                "%s:%d:: WindowsCreateStringReference = %ld\n", __FUNCTION__, __LINE__,
                 hr
             );
         }
@@ -258,7 +262,7 @@ inline HRESULT String2IXMLDocument(
         if (stream)
         {
             fprintf(stream,
-                "%s:%d:: WindowsCreateStringReference = %d\n", __FUNCTION__, __LINE__,
+                "%s:%d:: WindowsCreateStringReference = %ld\n", __FUNCTION__, __LINE__,
                 hr
             );
         }
@@ -279,7 +283,7 @@ inline HRESULT String2IXMLDocument(
     else
     {
         printf(
-            "%s:%d:: RoActivateInstance = %d\n", __FUNCTION__, __LINE__,
+            "%s:%d:: RoActivateInstance = %ld\n", __FUNCTION__, __LINE__,
             hr
         );
         goto exit2;
@@ -294,7 +298,7 @@ inline HRESULT String2IXMLDocument(
     if (FAILED(hr))
     {
         printf(
-            "%s:%d:: QueryInterface = %d\n", __FUNCTION__, __LINE__,
+            "%s:%d:: QueryInterface = %ld\n", __FUNCTION__, __LINE__,
             hr
         );
         goto exit3;
@@ -306,7 +310,7 @@ inline HRESULT String2IXMLDocument(
         if (stream)
         {
             fprintf(stream,
-                "%s:%d:: pxmlDocumentIO->LoadXml = %d\n", __FUNCTION__, __LINE__,
+                "%s:%d:: pxmlDocumentIO->LoadXml = %ld\n", __FUNCTION__, __LINE__,
                 hr
             );
         }
